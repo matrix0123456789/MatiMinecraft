@@ -1,9 +1,10 @@
 import * as THREE from 'three';
 
 const textureLoader = new THREE.TextureLoader();
-const texturePromise= new Promise((resolve, reject) => {
+const texturePromise = new Promise((resolve, reject) => {
     const texture = textureLoader.load('terrain.png', resolve);
 });
+
 export class Chunk3d extends THREE.Object3D {
     constructor(chunkData) {
         super();
@@ -21,19 +22,19 @@ export class Chunk3d extends THREE.Object3D {
                         const cube = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), material);
                         cube.position.set(x, y, z);
 
-                        material.emissive.set(0,0,0)
+                        material.emissive.set(0, 0, 0)
                         texturePromise.then(texture => {
                             console.log('ddddd')
-                            texture.repeat.x=1/16
-                            texture.repeat.y=1/16
-                            texture.offset.x=2/16
-                            texture.offset.y=15/16
+                            texture.repeat.x = 1 / 16
+                            texture.repeat.y = 1 / 16
+                            texture.offset.x = 2 / 16
+                            texture.offset.y = 15 / 16
                             texture.magFilter = THREE.NearestFilter;
                             texture.minFilter = THREE.NearestFilter;
 
-                           material.emissiveMap = texture;
-                           material.needsUpdate = true;
-                           material.emissive.set(1,1,1)
+                            material.emissiveMap = texture;
+                            material.needsUpdate = true;
+                            material.emissive.set(1, 1, 1)
                         });
                         this.add(cube);
                     }

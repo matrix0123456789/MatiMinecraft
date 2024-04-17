@@ -20,14 +20,14 @@ export default class Game extends HTMLElement {
 
         this.resize()
         addEventListener('resize', () => this.resize())
-        this.lastTick=new Date();
+        this.lastTick = new Date();
         this.tick()
     }
 
     tick() {
-        const date=new Date();
-        const deltaTime=date-this.lastTick;
-        this.lastTick=date;
+        const date = new Date();
+        const deltaTime = date - this.lastTick;
+        this.lastTick = date;
         this.tmpCube.rotateX(0.01)
         this.tmpCube.rotateY(0.02)
 

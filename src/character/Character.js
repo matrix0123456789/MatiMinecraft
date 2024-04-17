@@ -23,7 +23,7 @@ export class Character extends Object3D {
             this.rotation.z += constroller.rotationDifference.z
             constroller.rotationDifference.set(0, 0, 0)
 
-            const speed= 0.01*deltaTime;
+            const speed = 0.01 * deltaTime;
             this.position.add(constroller.movementVector.multiplyScalar(speed))
         }
     }

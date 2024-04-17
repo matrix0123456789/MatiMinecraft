@@ -14,7 +14,7 @@ export default {
         for (let x = 0; x < 16; x++) {
             for (let y = 0; y < 16; y++) {
                 for (let z = 0; z < 16; z++) {
-                    if (z<=5) {
+                    if (z <= 5) {
                         ret.push(1)
                     } else {
                         ret.push(0)
