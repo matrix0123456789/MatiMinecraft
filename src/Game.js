@@ -2,6 +2,15 @@ import * as THREE from 'three';
 import {World} from "./world/world.js";
 import {Character} from "./character/Character.js";
 
+/**
+ * kolory tła
+ * //#83afff
+ * const vec4 color1=vec4(0.5137254901960784,0.6862745098039216,1.0,1.0);
+ * //#acd2ff
+ * const vec4 color2=vec4(0.6745098039215687,0.8235294117647058,1.0,1.0);
+ * //#054c7f
+ * const vec4 color3=vec4(0.0196078431372549,0.2980392156862745,0.4980392156862745,1.0);
+ */
 export default class Game extends HTMLElement {
     constructor() {
         super()
