@@ -16,6 +16,8 @@ export default {
                 for (let z = 0; z < 16; z++) {
                     if (z <= 5) {
                         ret.push(1)
+                    } else if (z == 6) {
+                        ret.push(Math.random() > 0.5 ? 1 : 0)
                     } else {
                         ret.push(0)
                     }

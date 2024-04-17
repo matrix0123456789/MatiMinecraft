@@ -6,7 +6,7 @@ export class MouseController {
     constructor() {
         addEventListener("mousemove", (event) => {
             this.rotationDifference.z -= event.movementX / innerWidth;
-            this.rotationDifference.x += event.movementY / innerHeight;
+            this.rotationDifference.x -= event.movementY / innerHeight;
         });
         addEventListener("click", e => {
             document.body.requestPointerLock()

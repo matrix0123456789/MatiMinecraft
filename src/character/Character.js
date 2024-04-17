@@ -8,7 +8,6 @@ export class Character extends Object3D {
         super()
         this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         this.camera.rotation.x = Math.PI / 2
-        this.camera.rotation.order = "YZX"
         this.add(this.camera)
         this.controllers = [
             new MouseController(),
@@ -18,9 +17,10 @@ export class Character extends Object3D {
 
     tick(deltaTime) {
         for (const constroller of this.controllers) {
-            this.rotation.x += constroller.rotationDifference.x
-            this.rotation.y += constroller.rotationDifference.y
-            this.rotation.z += constroller.rotationDifference.z
+            this.camera.rotation.x += constroller.rotationDifference.x
+            this.camera.rotation.y += constroller.rotationDifference.y
+            this.camera.rotation.z += constroller.rotationDifference.z
+            this.camera.rotation.order = "ZXY"
             constroller.rotationDifference.set(0, 0, 0)
 
             const speed = 0.01 * deltaTime;
