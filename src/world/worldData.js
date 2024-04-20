@@ -9,6 +9,15 @@ export default {
         }
         return this.chunks.get(x).get(y)
     },
+    getOneBlock(x, y, z) {
+        if(z>=16){
+            return 0
+        }
+        const chunkX = Math.floor(x / 16)
+        const chunkY = Math.floor(y / 16)
+        const chunk = this.getChunk(chunkX, chunkY)
+        return chunk[(x % 16) * 16 * 16 + (y % 16) * 16 + (z % 16)]
+    },
     generateChunk(cx, cy) {
         const ret = [];
         for (let x = 0; x < 16; x++) {

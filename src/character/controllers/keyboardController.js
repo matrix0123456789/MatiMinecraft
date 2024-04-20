@@ -25,6 +25,9 @@ export class KeyboardController {
         } else if (this.pressedKeys.has('d')) {
             ret.x += 1
         }
+        if(this.pressedKeys.has(' ')){
+            ret.z+=0.1
+        }
 
         return ret;
     }
