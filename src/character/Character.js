@@ -2,6 +2,8 @@ import {Object3D} from "three";
 import * as THREE from "three";
 import {MouseController} from "./controllers/mouseController.js";
 import {KeyboardController} from "./controllers/keyboardController.js";
+import skyBoxFragmentShader from "../shaders/skybox.fs.glsl";
+import skyBoxVertexShader from "../shaders/skybox.vs.glsl";
 
 export class Character extends Object3D {
     constructor() {
@@ -13,6 +15,10 @@ export class Character extends Object3D {
             new MouseController(),
             new KeyboardController()
         ]
+
+        this.skyBox=new THREE.Mesh(new THREE.BoxGeometry(1,1,1), new THREE.ShaderMaterial({side: THREE.BackSide, fragmentShader:skyBoxFragmentShader, vertexShader:skyBoxVertexShader}))
+        this.skyBox.scale.setScalar(1000)
+        this.add(this.skyBox)
     }
 
     tick(deltaTime) {

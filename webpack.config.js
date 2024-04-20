@@ -10,6 +10,10 @@ export default {
                     'css-loader',
                     'sass-loader'
                 ]
+            },
+            {
+                test: /\.glsl$/,
+                use: 'raw-loader'
             }
         ]
     },

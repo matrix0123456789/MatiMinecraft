@@ -10,6 +10,7 @@ export class Chunk3d extends THREE.Object3D {
         super();
         this.chunkData = chunkData;
         this.generate();
+
     }
 
     generate() {
@@ -21,6 +22,8 @@ export class Chunk3d extends THREE.Object3D {
                         const material = new THREE.MeshStandardMaterial({});
                         const cube = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), material);
                         cube.position.set(x, y, z);
+                        cube.castShadow = true;
+                        cube.receiveShadow = true;
 
                         material.emissive.set(0, 0, 0)
                         texturePromise.then(texture => {
@@ -32,9 +35,9 @@ export class Chunk3d extends THREE.Object3D {
                             texture.magFilter = THREE.NearestFilter;
                             texture.minFilter = THREE.NearestFilter;
 
-                            material.emissiveMap = texture;
+                            material.map = texture;
                             material.needsUpdate = true;
-                            material.emissive.set(1, 1, 1)
+                            material.color.set(1, 1, 1)
                         });
                         this.add(cube);
                     }
