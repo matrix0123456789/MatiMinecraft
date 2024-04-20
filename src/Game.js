@@ -41,6 +41,9 @@ export default class Game extends HTMLElement {
         this.tmpCube.rotateY(0.02)
 
         this.character.tick(deltaTime);
+
+        this.world.tick(this.character.position)
+
         this.renderer.render(this.scene, this.character.camera);
         requestAnimationFrame(() => this.tick());
     }
