@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import {World} from "./world/world.js";
 import {Character} from "./character/Character.js";
+import {GUI} from "./GUI.js";
 
 /**
  * kolory tła
@@ -16,7 +17,7 @@ export default class Game extends HTMLElement {
         super()
         this.scene = new THREE.Scene();
         this.world = new World();
-        this.character = new Character();
+        this.character = new Character(this);
         this.scene.add(this.world)
         this.scene.add(this.character)
         this.renderer = new THREE.WebGLRenderer();
@@ -26,6 +27,8 @@ export default class Game extends HTMLElement {
         this.character.position.y = 5
         this.tmpCube = new THREE.Mesh(new THREE.BoxGeometry(), new THREE.MeshNormalMaterial());
         this.scene.add(this.tmpCube);
+        this.gui = new GUI();
+        this.appendChild(this.gui);
 
         this.resize()
         addEventListener('resize', () => this.resize())
@@ -36,11 +39,11 @@ export default class Game extends HTMLElement {
     tick() {
         const date = new Date();
         let deltaTime = date - this.lastTick;
-        if(deltaTime>100){
+        if (deltaTime > 100) {
             deltaTime = 100;
         }
         this.lastTick = date;
-        for(let i=0; i<deltaTime; i++) {
+        for (let i = 0; i < deltaTime; i++) {
             this.character.tick(1)
 
             this.tmpCube.rotateX(0.01)
@@ -49,9 +52,26 @@ export default class Game extends HTMLElement {
             this.character.tick(1);
 
             this.world.tick(this.character.position)
+
+            this.checkActions();
+
         }
         this.renderer.render(this.scene, this.character.camera);
         requestAnimationFrame(() => this.tick());
+    }
+
+    checkActions() {
+        if (this.character.controllers.some(c => c.isLeftButtonPressed)) {
+            const rayCaster = new THREE.Raycaster();
+            rayCaster.setFromCamera(new THREE.Vector2(0, 0), this.character.camera);
+            const intersectedObject = rayCaster.intersectObject(this.scene, true)[0];
+            if (intersectedObject && intersectedObject.distance < 3) {
+                console.log(intersectedObject);
+                const deletedBlock = this.world.deleteBlock(Math.floor(intersectedObject.object.position.x), Math.floor(intersectedObject.object.position.y), Math.floor(intersectedObject.object.position.z));
+                this.character.addBlockToEquipment(deletedBlock);
+            }
+            this.character.controllers.forEach(c => c.isLeftButtonPressed = false);
+        }
     }
 
     resize() {

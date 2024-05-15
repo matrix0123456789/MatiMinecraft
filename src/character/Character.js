@@ -7,8 +7,10 @@ import skyBoxVertexShader from "../shaders/skybox.vs.glsl";
 import WorldData from "../world/worldData.js";
 
 export class Character extends Object3D {
-    constructor() {
+    equipment=[]
+    constructor(game) {
         super()
+        this.game= game
         this.speed = new THREE.Vector3(0, 0, 0)
         this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         this.camera.rotation.x = Math.PI / 2
@@ -54,12 +56,10 @@ export class Character extends Object3D {
          positionPost = this.testCollisionYMinus(positionPrev, positionPost)
          positionPost = this.testCollisionYPlus(positionPrev, positionPost)
         positionPost = this.testCollisionZMinus(positionPrev, positionPost)
-        console.log(positionPrev, positionPost)
         this.position.copy(positionPost)
     }
 
     testCollisionZMinus(positionPrev, positionPost) {
-        console.log('testCollisionZMinus')
         if (Math.floor(positionPost.z) < Math.floor(positionPrev.z)) {
             const blocks = [
                 WorldData.getOneBlock(Math.floor(positionPrev.x-0.25), Math.floor(positionPrev.y-0.25), Math.floor(positionPost.z)),
@@ -156,5 +156,20 @@ export class Character extends Object3D {
         } else {
             return positionPost
         }
+    }
+
+    addBlockToEquipment(deletedBlock) {
+        let finded=false;
+        for(let i=0;i<this.equipment.length; i++){
+            if(this.equipment[i].type==deletedBlock && this.equipment[i].count<64){
+                this.equipment[i].count++;
+                finded=true;
+                break;
+            }
+        }
+        if(!finded) {
+            this.equipment.push({type: deletedBlock, count: 1})
+        }
+        this.game.gui.refreshEquipment(this.equipment)
     }
 }

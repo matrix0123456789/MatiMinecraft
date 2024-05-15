@@ -2,3 +2,72 @@ html, body {
     margin: 0;
     padding: 0;
 }
+game-gui{
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+
+    .viewfinder{
+        position: absolute;
+        top: calc(50% - 1vw);
+        left: calc(50% - 1vw);
+        width: 2vw;
+        height: 2vw;
+
+
+        &::before{
+            content: '';
+            position: absolute;
+            display: block;
+top:0.8vw;
+            left: 0;
+            width: 2vw;
+            height: 0.4vw;
+            backdrop-filter: #{"invert(1)"};
+        }
+        &::after{
+            content: '';
+            position: absolute;
+            display: block;
+            top:0;
+            left: 0.8vw;
+            width: 0.4vw;
+            height: 2vw;
+            backdrop-filter: #{"invert(1)"};
+        }
+    }
+    .quickBar{
+        position: absolute;
+        bottom: 10%;
+        left: 0;
+        right: 0;
+        display: flex;
+        gap:1.5vw;
+        justify-content: center;
+        .slot{
+            width: 4vw;
+            height: 4vw;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 0 0.5vw rgba(0,0,0,0.5);
+            background: rgba(0,0,0,0.2);
+
+            &[data-block-type="1"]{
+                background: #333;
+            }
+            &[data-block-type="2"]{
+                background: #f00;
+            }
+            &[data-block-type="3"]{
+                background: #0f0;
+            }
+            &[data-block-type="4"]{
+                background: #00f;
+            }
+            &[data-block-type="5"]{
+                background: #ff0;
+            }
+        }
+    }
+}

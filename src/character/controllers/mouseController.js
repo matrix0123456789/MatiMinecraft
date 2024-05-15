@@ -2,6 +2,8 @@ import {Euler, Vector3} from "three";
 
 export class MouseController {
     rotationDifference = new Euler()
+    isLeftButtonPressed = false;
+    isRightButtonPressed = false;
 
     constructor() {
         addEventListener("mousemove", (event) => {
@@ -9,6 +11,8 @@ export class MouseController {
             this.rotationDifference.x -= event.movementY / innerHeight;
         });
         addEventListener("click", e => {
+            this.isLeftButtonPressed = true;
+            console.log('mouse clicked')
             document.body.requestPointerLock()
         })
     }

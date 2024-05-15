@@ -12,6 +12,10 @@ export class Chunk3d extends THREE.Object3D {
         this.generate();
 
     }
+    refresh(){
+        this.children.forEach(child=>this.remove(child))
+        this.generate()
+    }
 
     generate() {
         for (let x = 0; x < 16; x++) {
@@ -27,7 +31,6 @@ export class Chunk3d extends THREE.Object3D {
 
                         material.emissive.set(0, 0, 0)
                         texturePromise.then(texture => {
-                            console.log('ddddd')
                             texture.repeat.x = 1 / 16
                             texture.repeat.y = 1 / 16
                             texture.offset.x = 2 / 16
