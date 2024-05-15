@@ -26,7 +26,7 @@ export class KeyboardController {
             ret.x += 1
         }
         if(this.pressedKeys.has(' ')){
-            ret.z+=0.1
+            ret.z=1
         }
 
         return ret;

@@ -21,7 +21,7 @@ export class Chunk3d extends THREE.Object3D {
                     if (chunkType > 0) {
                         const material = new THREE.MeshStandardMaterial({});
                         const cube = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), material);
-                        cube.position.set(x, y, z);
+                        cube.position.set(x+.5, y+.5, z+.5);
                         cube.castShadow = true;
                         cube.receiveShadow = true;
 

@@ -35,15 +35,21 @@ export default class Game extends HTMLElement {
 
     tick() {
         const date = new Date();
-        const deltaTime = date - this.lastTick;
+        let deltaTime = date - this.lastTick;
+        if(deltaTime>100){
+            deltaTime = 100;
+        }
         this.lastTick = date;
-        this.tmpCube.rotateX(0.01)
-        this.tmpCube.rotateY(0.02)
+        for(let i=0; i<deltaTime; i++) {
+            this.character.tick(1)
 
-        this.character.tick(deltaTime);
+            this.tmpCube.rotateX(0.01)
+            this.tmpCube.rotateY(0.02)
 
-        this.world.tick(this.character.position)
+            this.character.tick(1);
 
+            this.world.tick(this.character.position)
+        }
         this.renderer.render(this.scene, this.character.camera);
         requestAnimationFrame(() => this.tick());
     }
