@@ -172,4 +172,12 @@ export class Character extends Object3D {
         }
         this.game.gui.refreshEquipment(this.equipment)
     }
+
+    pullBlockFromEquipment() {
+        if(this.equipment[0] && this.equipment[0].count>0){
+            this.equipment[0].count--;
+            this.game.gui.refreshEquipment(this.equipment)
+            return this.equipment[0].type;
+        }
+    }
 }

@@ -72,6 +72,17 @@ export default class Game extends HTMLElement {
             }
             this.character.controllers.forEach(c => c.isLeftButtonPressed = false);
         }
+
+        if (this.character.controllers.some(c => c.isRightButtonPressed)) {
+            const rayCaster = new THREE.Raycaster();
+            rayCaster.setFromCamera(new THREE.Vector2(0, 0), this.character.camera);
+            const intersectedObject = rayCaster.intersectObject(this.scene, true)[0];
+            if (intersectedObject && intersectedObject.distance < 3) {
+            const block=this.character.pullBlockFromEquipment();
+            this.world.putBlock(block, Math.floor(intersectedObject.point.x), Math.floor(intersectedObject.point.y), Math.floor(intersectedObject.point.z)+1);
+            }
+            this.character.controllers.forEach(c => c.isRightButtonPressed = false);
+        }
     }
 
     resize() {

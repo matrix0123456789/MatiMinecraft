@@ -50,4 +50,18 @@ export class World extends THREE.Object3D {
         chunk.refresh();
         return deletedBlock;
     }
+
+    putBlock(block, x, y, z) {
+        const chunkX = Math.floor(x / 16)
+        const chunkY = Math.floor(y / 16)
+        const chunkData = WorldData.getChunk(chunkX, chunkY)
+        const blockX = Math.floor(x-chunkX*16)
+        const blockY = Math.floor(y - chunkY * 16)
+        const blockZ = Math.floor(z)
+        const deletedBlock=chunkData[blockX * 16 * 16 + blockY * 16 + blockZ];
+        chunkData[blockX * 16 * 16 + blockY * 16 + blockZ] = block
+
+        const chunk = this.chunksMap.get(chunkX).get(chunkY)
+        chunk.refresh();
+    }
 }

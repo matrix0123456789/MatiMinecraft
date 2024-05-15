@@ -11,9 +11,15 @@ export class MouseController {
             this.rotationDifference.x -= event.movementY / innerHeight;
         });
         addEventListener("click", e => {
-            this.isLeftButtonPressed = true;
-            console.log('mouse clicked')
             document.body.requestPointerLock()
+        })
+        addEventListener("mousedown", e => {
+            e.preventDefault()
+            if (e.button == 2) {
+                this.isRightButtonPressed = true;
+            } else if (e.button == 0) {
+                this.isLeftButtonPressed = true;
+            }
         })
     }
 
